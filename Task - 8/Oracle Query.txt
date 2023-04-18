@@ -1,9 +1,13 @@
----159. List the dept 10 emps whose Sal is more than Allen Salary.
-select * from emp where deptno=10 and sal >(select sal from emp where ename='ALLEN');
-
----160. List the Managers who are senior to king & who are junior to Smith.
-select * from emp where JOB='MANAGER' and hiredate between(select Hiredate from emp where ename='SMITH') and (select Hiredate from emp where ename='KING') ;
+1)List the emps who are working as Manager.
+select * from emp where empno in (select mgr from emp)
 
 
----161. List the Empno, Ename, loc, Sal, Dname of all emps belongs to king dept
-select Empno,Ename, loc, Sal, Dname from emp join dept using(deptno) where deptno in (select Deptno from emp where ename='KING') ;
+ 
+
+2)List the emps who are working as clerks and exp is more that 8 Years.
+select * from emp where job='CLERK' and to_char(sysdate,'MON DD, YYYY') > to_char(to_date('13-apr-2015'),'ddth "of" mon YYYY');
+
+ 
+
+3)List the Empno, Ename, Sal, Job of emps with the annSal <34000 but receiving some comm. Which should not be greater than Sal and the designation should be Salesman working for dept 20.
+select empno,ename,sal as salary,job  from emp where sal<34000 and comm is not null and job like 'SALESMAN' and deptno=30;
